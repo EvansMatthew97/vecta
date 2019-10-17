@@ -1,0 +1,30 @@
+{
+  "name": "vecta",
+  "version": "0.0.1",
+  "description": "A simple immutable vector library",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvansMatthew97/vecta.git"
+  },
+  "author": "Matthew Evans",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EvansMatthew97/vecta/issues"
+  },
+  "homepage": "https://github.com/EvansMatthew97/vecta#readme",
+  "dependencies": {
+    "typescript": "^3.6.4"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.3",
+    "@types/jest": "^24.0.19",
+    "chai": "^4.2.0",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.1.0"
+  }
+}
