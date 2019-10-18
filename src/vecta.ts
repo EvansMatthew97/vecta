@@ -261,10 +261,6 @@ export class Vecta {
     return Math.sqrt(this.x * this.x + this.y * this.y);
   }
 
-  public length() {
-    return this.magnitude();
-  }
-
   public normalize() {
     const magnitude = this.magnitude();
 

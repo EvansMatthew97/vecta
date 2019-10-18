@@ -360,11 +360,9 @@ describe('division methods', () => {
 describe('magnitude method', () => {
   const vec1 = new Vecta(3, 4);
   const resMag1 = vec1.magnitude();
-  const resLen1 = vec1.length();
 
   const vec2 = new Vecta(24, 7);
   const resMag2 = vec2.magnitude();
-  const resLen2 = vec2.length();
 
   it('should be a scalar', () => {
     expect(resMag1).to.be.a('number');
@@ -377,11 +375,6 @@ describe('magnitude method', () => {
   it('should give the correct answer', () => {
     expect(resMag1).to.equal(5);
     expect(resMag2).to.equal(25);
-  });
-
-  it('should yeild the same answer as length()', () => {
-    expect(resLen1).to.equal(resMag1);
-    expect(resLen2).to.equal(resMag2);
   });
 });
 
