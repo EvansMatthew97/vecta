@@ -135,28 +135,11 @@ export class Vecta {
   /**
    * Adds the given scalar to both axes of the vecta and returns
    * a new Vecta with the result
-   * @param scalar 
+   * @param scalarX 
    */
-  public addScalar(scalar: number) {
-    return new Vecta(this.x + scalar, this.y + scalar);
-  }
-
-  /**
-   * Adds the given scalar value to the vector's x axis and returns
-   * a new Vecta with the result.
-   * @param scalar 
-   */
-  public addScalarX(scalar: number) {
-    return new Vecta(this.x + scalar, this.y);
-  }
-
-  /**
-   * Adds the given scalar value to the vector's y axis and returns
-   * a new Vecta with the result.
-   * @param scalar 
-   */
-  public addScalarY(scalar: number) {
-    return new Vecta(this.x, this.y + scalar);
+  public addScalar(scalarX: number, scalarY?: number) {
+    if (scalarY !== 0) scalarY = scalarY || scalarX;
+    return new Vecta(this.x + scalarX, this.y + scalarY);
   }
 
 
@@ -188,17 +171,9 @@ export class Vecta {
     return new Vecta(this.x, this.y - vector.y);
   }
 
-
-  public subScalar(scalar: number) {
-    return new Vecta(this.x - scalar, this.y - scalar);
-  }
-
-  public subScalarX(scalar: number) {
-    return new Vecta(this.x - scalar, this.y);
-  }
-
-  public subScalarY(scalar: number) {
-    return new Vecta(this.x, this.y - scalar);
+  public subScalar(scalarX: number, scalarY?: number) {
+    if (scalarY !== 0) scalarY = scalarY || scalarX;
+    return new Vecta(this.x - scalarX, this.y - scalarY);
   }
 
 
@@ -214,25 +189,14 @@ export class Vecta {
     return new Vecta(this.x, this.y / vector.y);
   }
 
-  public divScalar(scalar: number) {
-    if (scalar === 0) {
-      return new Vecta(0, 0);
-    }
-    return new Vecta(this.x / scalar, this.y / scalar);
-  }
+  public divScalar(scalarX: number, scalarY?: number) {
+    if (scalarY !== 0) scalarY = scalarY || scalarX;
 
-  public divScalarX(scalar: number) {
-    if (scalar === 0) {
-      return new Vecta(0, this.y);
+    if (scalarX === 0 || scalarY === 0) {
+      throw new Error('Cannot divide by 0');
     }
-    return new Vecta(this.x / scalar, this.y);
-  }
 
-  public divScalarY(scalar: number) {
-    if (scalar === 0) {
-      return new Vecta(this.x, 0);
-    }
-    return new Vecta(this.x, this.y / scalar);
+    return new Vecta(this.x / scalarX, this.y / scalarY);
   }
 
   public mul(vector: Vecta) {
@@ -247,18 +211,21 @@ export class Vecta {
     return new Vecta(this.x, this.y * vector.y);
   }
 
-  public mulScalar(scalar: number) {
-    return new Vecta(this.x * scalar, this.y * scalar);
+  /**
+   * Multiplies the vector by the given scalar. If only the X
+   * scalar is given, then uses that same value for the Y scalar.
+   * @param scalarX 
+   * @param scalarY 
+   */
+  public mulScalar(scalarX: number, scalarY?: number) {
+    if (scalarY !== 0) scalarY = scalarY || scalarX;
+    return new Vecta(this.x * scalarX, this.y * scalarY);
   }
 
-  public mulScalarX(scalar: number) {
-    return new Vecta(this.x * scalar, this.y);
-  }
-
-  public mulScalarY(scalar: number) {
-    return new Vecta(this.x, this.y * scalar);
-  }
-
+  /**
+   * Inverts the vector (multiplies by -1) and returns the result
+   * in a new Vecta.
+   */
   public invert() {
     return new Vecta(this.x * -1, this.y * -1);
   }
@@ -357,7 +324,7 @@ export class Vecta {
     return this.angleRad() * 180 / Math.PI;
   }
 
-  public rotateRad(radians: number): Vecta {
+  public rotateByRad(radians: number): Vecta {
     if (radians === 0) {
       return this.clone();
     }
@@ -368,11 +335,16 @@ export class Vecta {
     );
   }
 
-  public rotate(degrees: number) {
-    return this.rotateRad(degrees / 180 * Math.PI);
+  public rotateBy(degrees: number) {
+    return this.rotateByRad(degrees / 180 * Math.PI);
   }
 
-  public distance(vector: Vecta) {
+  /**
+   * Calculates the Euclidean distance between this vector and
+   * the given vector.
+   * @param vector 
+   */
+  public distanceTo(vector: Vecta) {
     const dx = vector.x - this.x;
     const dy = vector.y - this.y;
     return Math.sqrt(dx * dx + dy * dy);

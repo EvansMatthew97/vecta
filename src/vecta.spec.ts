@@ -87,6 +87,17 @@ describe('instantiation', () => {
   });
 });
 
+describe('toString method', () => {
+  const vec = new Vecta(10, 20);
+  
+  it('should output in desired format', () => {
+    expect(vec.toString()).to.equal('Vecta { x: 10, y: 20 }');
+  });
+
+  it('should convert when casting to string', () => {
+    expect(vec.toString()).to.equal('' + vec);
+  });
+});
 
 describe('clone method', () => {
   const vec = new Vecta(10, 20);
@@ -181,6 +192,27 @@ describe('add methods', () => {
       expect(vec1.getY()).to.equal(20);
     });
   });
+
+  describe('addScalar', () => {
+    const vec1 = new Vecta(10, 20);
+    const res1 = vec1.addScalar(5);
+    const res2 = vec1.addScalar(0, 5);
+    const res3 = vec1.addScalar(5, 0);
+
+    helpers.shouldBeImmutable(vec1, 10, 20);
+    helpers.shouldBeChainable(res1);
+
+    it('should give correct answers', () => {
+      expect(res1.getX()).to.equal(15);
+      expect(res1.getY()).to.equal(25);
+
+      expect(res2.getX()).to.equal(10);
+      expect(res2.getY()).to.equal(25);
+
+      expect(res3.getX()).to.equal(15);
+      expect(res3.getY()).to.equal(20);
+    });
+  });
 });
 
 
@@ -245,6 +277,27 @@ describe('subtraction methods', () => {
     it('should be immutable', () => {
       expect(vec1.getX()).to.equal(10);
       expect(vec1.getY()).to.equal(20);
+    });
+  });
+
+  describe('subScalar', () => {
+    const vec1 = new Vecta(10, 20);
+    const res1 = vec1.subScalar(5);
+    const res2 = vec1.subScalar(0, 5);
+    const res3 = vec1.subScalar(5, 0);
+
+    helpers.shouldBeImmutable(vec1, 10, 20);
+    helpers.shouldBeChainable(res1);
+
+    it('should give correct answers', () => {
+      expect(res1.getX()).to.equal(5);
+      expect(res1.getY()).to.equal(15);
+
+      expect(res2.getX()).to.equal(10);
+      expect(res2.getY()).to.equal(15);
+
+      expect(res3.getX()).to.equal(5);
+      expect(res3.getY()).to.equal(20);
     });
   });
 });
@@ -313,6 +366,40 @@ describe('multiplication methods', () => {
       expect(vec1.getY()).to.equal(20);
     });
   });
+
+  describe('mulScalar', () => {
+    const vec1 = new Vecta(10, 20);
+    const res1 = vec1.mulScalar(5);
+    const res2 = vec1.mulScalar(1, 5);
+    const res3 = vec1.mulScalar(5, 1);
+    const res4 = vec1.mulScalar(0);
+    const res5 = vec1.mulScalar(0, 5);
+    const res6 = vec1.mulScalar(5, 0);
+
+    helpers.shouldBeImmutable(vec1, 10, 20);
+    helpers.shouldBeChainable(res1);
+
+    it('should give correct answers', () => {
+      expect(res1.getX()).to.equal(50);
+      expect(res1.getY()).to.equal(100);
+
+      expect(res2.getX()).to.equal(10);
+      expect(res2.getY()).to.equal(100);
+
+      expect(res3.getX()).to.equal(50);
+      expect(res3.getY()).to.equal(20);
+
+      expect(res4.getX()).to.equal(0);
+      expect(res4.getY()).to.equal(0);
+
+      expect(res5.getX()).to.equal(0);
+      expect(res5.getY()).to.equal(100);
+
+      expect(res6.getX()).to.equal(50);
+      expect(res6.getY()).to.equal(0);
+    });
+  });
+
 });
 
 
@@ -379,6 +466,33 @@ describe('division methods', () => {
       expect(vec1.getY()).to.equal(20);
     });
   });
+
+  describe('divScalar', () => {
+    const vec1 = new Vecta(10, 20);
+    const res1 = vec1.divScalar(5);
+    const res2 = vec1.divScalar(1, 5);
+    const res3 = vec1.divScalar(5, 1);
+
+    helpers.shouldBeImmutable(vec1, 10, 20);
+    helpers.shouldBeChainable(res1);
+
+    it('should give correct answers', () => {
+      expect(res1.getX()).to.equal(2);
+      expect(res1.getY()).to.equal(4);
+
+      expect(res2.getX()).to.equal(10);
+      expect(res2.getY()).to.equal(4);
+
+      expect(res3.getX()).to.equal(2);
+      expect(res3.getY()).to.equal(20);
+    });
+
+    it('should fail on dividing by 0', () => {
+      expect(() => vec1.divScalar(0)).to.throw();
+      expect(() => vec1.divScalar(1, 0)).to.throw();
+      expect(() => vec1.divScalar(0, 1)).to.throw();
+    });
+  });
 });
 
 
@@ -433,16 +547,34 @@ describe('normalize method', () => {
 
 
 describe('limit method', () => {
-  const vec = new Vecta(10, 30);
-  const res = vec.limit(10, 0.5);
+  const vec1 = new Vecta(10, 30);
+  const res1 = vec1.limit(10, 0.5);
 
-  helpers.shouldBeChainable(res);
+  const vec2 = new Vecta(5, 10);
+  const res2 = vec2.limit(20, 0.2);
+  
+  const vec3 = new Vecta(30, 10);
+  const res3 = vec3.limit(10, 0.5);
 
-  helpers.shouldBeImmutable(vec,10, 30);
+  const vec4 = new Vecta(40, 30);
+  const res4 = vec4.limit(10, 0.5);
+
+  helpers.shouldBeChainable(res1);
+
+  helpers.shouldBeImmutable(vec1,10, 30);
 
   it('should give the correct answer', () => {
-    expect(res.getX()).to.equal(10);
-    expect(res.getY()).to.equal(15);
+    expect(res1.getX()).to.equal(10);
+    expect(res1.getY()).to.equal(15);
+
+    expect(res2.getX()).to.equal(5);
+    expect(res2.getY()).to.equal(10);
+
+    expect(res3.getX()).to.equal(15);
+    expect(res3.getY()).to.equal(10);
+
+    expect(res4.getX()).to.equal(20);
+    expect(res4.getY()).to.equal(15);
   });
 });
 
@@ -458,6 +590,8 @@ describe('random method', () => {
   const maxY = Math.max(topLeft.getY(), bottomRight.getY());
 
   const res = Vecta.random(topLeft, bottomRight);
+
+  expect(res).to.be.instanceOf(Vecta);
 
   helpers.shouldBeImmutable(topLeft, 0, 10);
   helpers.shouldBeImmutable(bottomRight, 15, -5);
@@ -565,13 +699,13 @@ describe('crossProduct method', () => {
   const vec1 = new Vecta(-4, -9);
   const vec2 = new Vecta(-1, 2);
 
-  const res = vec1.dotProduct(vec2);
+  const res = vec1.crossProduct(vec2);
 
   helpers.shouldBeImmutable(vec1, -4, -9);
   helpers.shouldBeImmutable(vec2, -1, 2);
 
   it('should give the correct answer', () => {
-    expect(res).to.equal(-14);
+    expect(res).to.equal(-17);
   });
 });
 
@@ -597,16 +731,16 @@ describe('angle method', () => {
 describe('rotate method', () => {
   const vec1 = new Vecta(10, 0);
 
-  const res1_1 = vec1.rotate(90);
-  const res1_2 = vec1.rotate(180);
-  const res1_3 = vec1.rotate(270);
-  const res1_4 = vec1.rotate(-90);
-  const res1_5 = vec1.rotate(0);
+  const res1_1 = vec1.rotateBy(90);
+  const res1_2 = vec1.rotateBy(180);
+  const res1_3 = vec1.rotateBy(270);
+  const res1_4 = vec1.rotateBy(-90);
+  const res1_5 = vec1.rotateBy(0);
 
   const vec2 = new Vecta(0, 10);
 
-  const res2_1 = vec2.rotate(0);
-  const res2_2 = vec2.rotate(90);
+  const res2_1 = vec2.rotateBy(0);
+  const res2_2 = vec2.rotateBy(90);
   
   helpers.shouldBeImmutable(vec1, 10, 0);
   helpers.shouldBeChainable(res1_1);
@@ -620,6 +754,19 @@ describe('rotate method', () => {
 
     expect(res2_1.angle()).to.equal(90);
     expect(res2_2.angle()).to.equal(180);
+  });
+});
+
+describe('distance method', () => {
+  const vec1 = new Vecta(-10, 10);
+  const vec2 = new Vecta(10, 10);
+
+  const res = vec1.distanceTo(vec2);
+
+  helpers.shouldBeImmutable(vec1, -10, 10);
+  
+  it('should give correct answer', () => {
+    expect(res).to.equal(20);
   });
 });
 
