@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "jest --coverage",
-    "build": "tsc"
+    "build": "tsc",
+    "doc": "compodoc -p tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "@types/chai": "^4.2.3",
     "@types/jest": "^24.0.19",
     "chai": "^4.2.0",
+    "compodoc": "0.0.41",
     "jest": "^24.9.0",
     "ts-jest": "^24.1.0"
   }
