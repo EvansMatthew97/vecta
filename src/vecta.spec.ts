@@ -438,8 +438,11 @@ describe('random method', () => {
   helpers.shouldBeImmutable(bottomRight, 15, -5);
 
   it('should be within the given range', () => {
-    expect(res.getX()).to.be.within(minX, maxX);
-    expect(res.getY()).to.be.within(minY, maxY);
+    for (let i = 0; i < 50; i++) {
+      const res1 = Vecta.random(topLeft, bottomRight);
+      expect(res1.getX()).to.be.within(minX, maxX);
+      expect(res1.getY()).to.be.within(minY, maxY);
+    }
   });
 });
 
@@ -486,5 +489,35 @@ describe('invert methods', () => {
       expect(res.getX()).to.equal(x);
       expect(res.getY()).to.equal(correctY);
     });
+  });
+});
+
+describe('round method', () => {
+  const vec = new Vecta(1.5, 1.4);
+
+  const res = vec.round();
+
+  helpers.shouldBeImmutable(vec, 1.5, 1.4);
+  helpers.shouldBeChainable(res);
+
+  it('should give correct result', () => {
+    expect(res.getX()).to.equal(2);
+    expect(res.getY()).to.equal(1);
+  });
+});
+
+describe('interpolate method', () => {
+  const vec1 = new Vecta(10, 6);
+  const vec2 = new Vecta(20, 8);
+
+  const res = vec1.interpolate(vec2, 0.5, 0.75);
+
+  helpers.shouldBeImmutable(vec1, 10, 6);
+  helpers.shouldBeImmutable(vec2, 20, 8);
+  helpers.shouldBeChainable(res);
+
+  it('should give the correct answer', () => {
+    expect(res.getX()).to.equal(15);
+    expect(res.getY()).to.equal(7.5)
   });
 });

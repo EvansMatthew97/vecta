@@ -278,6 +278,9 @@ export class Vecta {
     );
   }
 
+  /**
+   * Rounds the x and y coordinates
+   */
   public round() {
     return new Vecta(
       Math.round(this.x),
@@ -285,10 +288,18 @@ export class Vecta {
     );
   }
 
+  /**
+   * Interpolates between two vectors. Factor indicates how progressed (between 0 and 1)
+   * the interpolation is towards the given vector. The interpolation method allows for
+   * nonlinear interpolation
+   * @param vector The vector to interpolate to
+   * @param factorX Progression towards vector (0 to 1) on x axis
+   * @param factorY Progression towards vector (0 to 1) on y axis
+   */
   public interpolate(vector: Vecta, factorX: number, factorY: number) {
     return new Vecta(
       (1 - factorX) * this.x + factorX * vector.x,
-      (1 - factorY) * this.x + factorY * vector.y,
+      (1 - factorY) * this.y + factorY * vector.y,
     );
   }
 
