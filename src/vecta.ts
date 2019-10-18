@@ -68,6 +68,20 @@ export class Vecta {
   }
 
   /**
+   * Returns a vector with x = 0 and y = 0
+   */
+  public static zero() {
+    return new Vecta(0, 0);
+  }
+
+  /**
+   * Returns a vector with x = 0 and y = 0
+   */
+  public zero() {
+    return new Vecta(0, 0);
+  }
+
+  /**
    * Returns a new Vecta with the same x and y values.
    */
   public clone() {
@@ -307,13 +321,6 @@ export class Vecta {
       (1 - factorX) * this.x + factorX * vector.x,
       (1 - factorY) * this.y + factorY * vector.y,
     );
-  }
-
-  /**
-   * Returns a vector with x = 0 and y = 0
-   */
-  public zero() {
-    return new Vecta(0, 0);
   }
 
   /**

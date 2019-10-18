@@ -72,6 +72,19 @@ describe('instantiation', () => {
       expect(vec).to.have.property('y', ob.y);
     });
   });
+
+  describe('zero', () => {
+    const vec = Vecta.zero();
+    
+    it('should be an instance of Vecta', () => {
+      expect(vec).to.be.an.instanceOf(Vecta);
+    });
+
+    it('should have x = 0 and y = 0', () => {
+      expect(vec.getX()).to.equal(0);
+      expect(vec.getY()).to.equal(0);
+    });
+  });
 });
 
 
@@ -92,6 +105,18 @@ describe('clone method', () => {
   });
 });
 
+describe('zero method', () => {
+  const vec = new Vecta(10, 10);
+  const res = vec.zero();
+
+  helpers.shouldBeImmutable(vec, 10, 10);
+  helpers.shouldBeChainable(res);
+
+  it('should have x = 0 and y = 0', () => {
+    expect(res.getX()).to.equal(0);
+    expect(res.getY()).to.equal(0);
+  });
+});
 
 /**
  * Addition methods
@@ -597,3 +622,4 @@ describe('rotate method', () => {
     expect(res2_2.angle()).to.equal(180);
   });
 });
+
