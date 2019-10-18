@@ -550,12 +550,14 @@ describe('crossProduct method', () => {
   });
 });
 
-describe('angle', () => {
+describe('angle method', () => {
   const vec1 = new Vecta(10, 0);
   const vec2 = new Vecta(0, 10);
+  const vec3 = new Vecta(-10, 0);
 
   const res1 = vec1.angle();
   const res2 = vec2.angle();
+  const res3 = vec3.angle();
 
   helpers.shouldBeImmutable(vec1, 10, 0);
   helpers.shouldBeImmutable(vec2, 0, 10);
@@ -563,5 +565,35 @@ describe('angle', () => {
   it('should give the correct answer', () => {
     expect(res1).to.equal(0);
     expect(res2).to.equal(90);
+    expect(res3).to.equal(180);
+  });
+});
+
+describe('rotate method', () => {
+  const vec1 = new Vecta(10, 0);
+
+  const res1_1 = vec1.rotate(90);
+  const res1_2 = vec1.rotate(180);
+  const res1_3 = vec1.rotate(270);
+  const res1_4 = vec1.rotate(-90);
+  const res1_5 = vec1.rotate(0);
+
+  const vec2 = new Vecta(0, 10);
+
+  const res2_1 = vec2.rotate(0);
+  const res2_2 = vec2.rotate(90);
+  
+  helpers.shouldBeImmutable(vec1, 10, 0);
+  helpers.shouldBeChainable(res1_1);
+
+  it('should give correct answer', () => {
+    expect(res1_1.angle()).to.equal(90);
+    expect(res1_2.angle()).to.equal(180);
+    expect(res1_3.angle()).to.be.closeTo(-90, 0.0001);
+    expect(res1_4.angle()).to.equal(-90);
+    expect(res1_5.angle()).to.equal(0);
+
+    expect(res2_1.angle()).to.equal(90);
+    expect(res2_2.angle()).to.equal(180);
   });
 });

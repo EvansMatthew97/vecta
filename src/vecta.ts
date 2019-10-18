@@ -351,6 +351,10 @@ export class Vecta {
   }
 
   public rotateRad(radians: number): Vecta {
+    if (radians === 0) {
+      return this.clone();
+    }
+
     return new Vecta(
       this.x * Math.cos(radians) - this.y * Math.sin(radians),
       this.x * Math.sin(radians) + this.y * Math.cos(radians),
