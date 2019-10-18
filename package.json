@@ -1,12 +1,13 @@
 {
   "name": "vecta",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple immutable vector library",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest --coverage",
     "build": "tsc",
-    "doc": "compodoc -p tsconfig.json"
+    "doc": "compodoc -p tsconfig.json",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
@@ -18,15 +19,15 @@
     "url": "https://github.com/EvansMatthew97/vecta/issues"
   },
   "homepage": "https://github.com/EvansMatthew97/vecta#readme",
-  "dependencies": {
-    "typescript": "^3.6.4"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/chai": "^4.2.3",
     "@types/jest": "^24.0.19",
     "chai": "^4.2.0",
     "compodoc": "0.0.41",
+    "coveralls": "^3.0.7",
     "jest": "^24.9.0",
-    "ts-jest": "^24.1.0"
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.6.4"
   }
 }
