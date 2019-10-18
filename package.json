@@ -4,7 +4,7 @@
   "description": "A simple immutable vector library",
   "main": "dist/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "build": "tsc"
   },
   "repository": {
