@@ -521,3 +521,47 @@ describe('interpolate method', () => {
     expect(res.getY()).to.equal(7.5)
   });
 });
+
+describe('dotProduct method', () => {
+  const vec1 = new Vecta(-4, -9);
+  const vec2 = new Vecta(-1, 2);
+
+  const res = vec1.dotProduct(vec2);
+
+  helpers.shouldBeImmutable(vec1, -4, -9);
+  helpers.shouldBeImmutable(vec2, -1, 2);
+
+  it('should give the correct answer', () => {
+    expect(res).to.equal(-14);
+  });
+});
+
+describe('crossProduct method', () => {
+  const vec1 = new Vecta(-4, -9);
+  const vec2 = new Vecta(-1, 2);
+
+  const res = vec1.dotProduct(vec2);
+
+  helpers.shouldBeImmutable(vec1, -4, -9);
+  helpers.shouldBeImmutable(vec2, -1, 2);
+
+  it('should give the correct answer', () => {
+    expect(res).to.equal(-14);
+  });
+});
+
+describe('angle', () => {
+  const vec1 = new Vecta(10, 0);
+  const vec2 = new Vecta(0, 10);
+
+  const res1 = vec1.angle();
+  const res2 = vec2.angle();
+
+  helpers.shouldBeImmutable(vec1, 10, 0);
+  helpers.shouldBeImmutable(vec2, 0, 10);
+
+  it('should give the correct answer', () => {
+    expect(res1).to.equal(0);
+    expect(res2).to.equal(90);
+  });
+});

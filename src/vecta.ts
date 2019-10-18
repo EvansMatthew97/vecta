@@ -271,6 +271,12 @@ export class Vecta {
     return new Vecta(this.x / magnitude, this.y / magnitude);
   }
 
+  /**
+   * Limits a vector by multiplying values outside of the range
+   * by the factor.
+   * @param max 
+   * @param factor 
+   */
   public limit(max: number, factor: number) {
     return new Vecta(
       Math.abs(this.x) > max ? this.x * factor : this.x,
@@ -303,22 +309,43 @@ export class Vecta {
     );
   }
 
+  /**
+   * Returns a vector with x = 0 and y = 0
+   */
   public zero() {
     return new Vecta(0, 0);
   }
 
+  /**
+   * Returns the dot product of this vector with the other vector.
+   * Dot product = a.x * b.x + a.y * b.y
+   * @param vector 
+   */
   public dotProduct(vector: Vecta) {
     return this.x * vector.x + this.y * vector.y;
   }
 
+  /**
+   * Returns the cross product of this vector with the other vector.
+   * Cross product = a.x * b.y - a.x * b.y
+   * Results in a 3D vector with only a z component. Returns the magnitude
+   * of that z component.
+   * @param vector 
+   */
   public crossProduct(vector: Vecta) {
     return this.x * vector.y - this.y * vector.x;
   }
 
-  public angleRad(horizontal = true) {
+  /**
+   * The angle between the x axis, (0, 0) and this vector in radians.
+   */
+  public angleRad() {
     return Math.atan2(this.y, this.x);
   }
 
+  /**
+   * The angle between the y axis, (0, 0) and this vector in degrees.
+   */
   public angle() {
     return this.angleRad() * 180 / Math.PI;
   }
