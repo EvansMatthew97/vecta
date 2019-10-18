@@ -1,5 +1,13 @@
 /**
- * 2D vector class
+ * 2D vector class.
+ * 
+ * This class is designed to be immutable. The x and y coordinates are
+ * private and so should not be changed. None of the class methods
+ * change these values - they instead all return a new Vecta with
+ * equal values.
+ * 
+ * All methods are designed with chaining in mind, unless it returns
+ * a scalar value.
  */
 export class Vecta {
 
@@ -23,6 +31,34 @@ export class Vecta {
   }
 
   /**
+   * Creates a new vector at a pseudorandom point in a rectangle
+   * defined by the * given top-left and bottom-right corners.
+   *       topLeft
+   *           v---------------
+   *           |              |
+   *           |              |
+   *           |              |
+   *           |  r           |  <-- R might be the random location
+   *           |              |
+   *           ---------------v
+   *                        bottomRight
+   * @param topLeft The top-left corner of the square
+   * @param bottomRight The bottom-right corner of the square
+   */
+  public static random(topLeft: Vecta, bottomRight: Vecta) {
+    const minX = Math.min(topLeft.x, bottomRight.x);
+    const maxX = Math.max(topLeft.x, bottomRight.x);
+
+    const minY = Math.min(topLeft.y, bottomRight.y);
+    const maxY = Math.max(topLeft.y, bottomRight.y);
+
+    return new Vecta(
+      Math.random() * (maxX - minX) + minX,
+      Math.random() * (maxY - minY) + minY,
+    );
+  }
+
+  /**
    * Converts an object containing the properties x and y of type
    * number into a Vecta
    * @param ob 
@@ -31,8 +67,36 @@ export class Vecta {
     return new Vecta(ob.x, ob.y);
   }
 
+  /**
+   * Returns a new Vecta with the same x and y values.
+   */
   public clone() {
     return new Vecta(this.x, this.y);
+  }
+
+  /**
+   * Returns the vector's x value
+   */
+  public getX() {
+    return this.x;
+  }
+
+  /**
+   * Returns the vector's y value
+   */
+  public getY() {
+    return this.y;
+  }
+
+
+  /**
+   * Adds the x dimension of the vectors together and the
+   * y dimension of the vector together and returns a new
+   * Vecta with the result.
+   * @param vector 
+   */
+  public add(vector: Vecta): Vecta {
+    return new Vecta(this.x + vector.x, this.y + vector.y);
   }
 
   /**
@@ -53,15 +117,6 @@ export class Vecta {
     return new Vecta(this.x, this.y + vector.y);
   }
 
-  /**
-   * Adds the x dimension of the vectors together and the
-   * y dimension of the vector together and returns a new
-   * Vecta with the result.
-   * @param vector 
-   */
-  public add(vector: Vecta): Vecta {
-    return new Vecta(this.x + vector.x, this.y + vector.y);
-  }
 
   /**
    * Adds the given scalar to both axes of the vecta and returns
@@ -72,25 +127,53 @@ export class Vecta {
     return new Vecta(this.x + scalar, this.y + scalar);
   }
 
+  /**
+   * Adds the given scalar value to the vector's x axis and returns
+   * a new Vecta with the result.
+   * @param scalar 
+   */
   public addScalarX(scalar: number) {
     return new Vecta(this.x + scalar, this.y);
   }
 
+  /**
+   * Adds the given scalar value to the vector's y axis and returns
+   * a new Vecta with the result.
+   * @param scalar 
+   */
   public addScalarY(scalar: number) {
     return new Vecta(this.x, this.y + scalar);
   }
 
+
+  /**
+   * Subtracts the x coordinate of the given vector from this
+   * Vecta's x coordinate and does the same for the y value.
+   * Returns the result in a new Vecta.
+   * @param vector 
+   */
   public sub(vector: Vecta) {
     return new Vecta(this.x - vector.x, this.y - vector.y);
   }
 
+  /**
+   * Subtracts the x coordinate of the given vector from this
+   * vecta's x coordinate and returns a new Vecta with the result
+   * @param vector 
+   */
   public subX(vector: Vecta) {
     return new Vecta(this.x - vector.x, this.y);
   }
 
+  /**
+   * Subtracts the y coordinate of the given vector from this
+   * vecta's y coordinate and returns a new Vecta with the result
+   * @param vector 
+   */
   public subY(vector: Vecta) {
     return new Vecta(this.x, this.y - vector.y);
   }
+
 
   public subScalar(scalar: number) {
     return new Vecta(this.x - scalar, this.y - scalar);
@@ -103,6 +186,7 @@ export class Vecta {
   public subScalarY(scalar: number) {
     return new Vecta(this.x, this.y - scalar);
   }
+
 
   public div(vector: Vecta) {
     return new Vecta(this.x / vector.x, this.y / vector.y);
@@ -185,7 +269,7 @@ export class Vecta {
     const magnitude = this.magnitude();
 
     if (magnitude === 0) {
-      return new Vecta(1, 0);
+      return new Vecta(0, 0);
     }
 
     return new Vecta(this.x / magnitude, this.y / magnitude);
@@ -195,13 +279,6 @@ export class Vecta {
     return new Vecta(
       Math.abs(this.x) > max ? this.x * factor : this.x,
       Math.abs(this.y) > max ? this.y * factor : this.y,
-    );
-  }
-
-  public random(topLeft: Vecta, bottomRight: Vecta) {
-    return new Vecta(
-      Math.random() * (bottomRight.x - topLeft.x) + topLeft.x,
-      Math.random() * (topLeft.y - bottomRight.y) + bottomRight.y,
     );
   }
 
