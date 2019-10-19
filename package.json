@@ -1,6 +1,6 @@
 {
   "name": "vecta",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A simple immutable vector library",
   "main": "dist/index.js",
   "scripts": {
