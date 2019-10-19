@@ -6,6 +6,8 @@ jobs:
   include:
     - stage: test
       script: npm run test
+    - stage: coverage
+      script: npm run coveralls
     - stage: deploy_docs
       script: npm run doc
       deploy:
@@ -20,3 +22,5 @@ jobs:
 stages:
   - deploy_docs
   - test
+  - coverage
+  

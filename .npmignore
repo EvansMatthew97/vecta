@@ -1,3 +1,5 @@
 /src/
 .travis.yml
 tsconfig.json
+/coverage
+/documentation
