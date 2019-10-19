@@ -728,6 +728,32 @@ describe('angle method', () => {
   });
 });
 
+describe('angleTo method', () => {
+  const vec0 = new Vecta(0, 0);
+  const vec1 = new Vecta(10, 0);
+  const vec2 = new Vecta(0, 10);
+  const vec3 = new Vecta(-10, 0);
+
+  const res1 = vec0.angleTo(vec1);
+  const res2 = vec0.angleTo(vec2);
+  const res3 = vec0.angleTo(vec3);
+
+  const res4 = new Vecta(5, 5).angleTo(new Vecta(10, 10));
+  const res5 = new Vecta(10, 10).angleTo(new Vecta(5, 5));
+
+  helpers.shouldBeImmutable(vec1, 10, 0);
+  helpers.shouldBeImmutable(vec0, 0, 0);
+
+  it('should give the same answers as angle for vector (0, 0)', () => {
+    expect(res1).to.equal(0);
+    expect(res2).to.equal(90);
+    expect(res3).to.equal(180);
+
+    expect(res4).to.equal(45);
+    expect(res5).to.equal(-135)
+  });
+});
+
 describe('rotate method', () => {
   const vec1 = new Vecta(10, 0);
 

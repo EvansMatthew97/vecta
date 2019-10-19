@@ -324,6 +324,22 @@ export class Vecta {
     return this.angleRad() * 180 / Math.PI;
   }
 
+  /**
+   * Finds the angle between this vector and another vector in radians.
+   * @param vector 
+   */
+  public angleToRad(vector: Vecta): number {
+    return Math.atan2(vector.y - this.y, vector.x - this.x);
+  }
+
+  /**
+   * Finds the angle between this vector and another vector in degrees.
+   * @param vector 
+   */
+  public angleTo(vector: Vecta): number {
+    return this.angleToRad(vector) * 180 / Math.PI;
+  }
+
   public rotateByRad(radians: number): Vecta {
     if (radians === 0) {
       return this.clone();
