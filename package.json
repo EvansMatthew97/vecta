@@ -28,6 +28,7 @@
     "jest": "^24.9.0",
     "ts-jest": "^24.1.0",
     "typedoc": "^0.15.0",
+    "typedoc-plugin-nojekyll": "^1.0.1",
     "typescript": "^3.6.4"
   }
 }
